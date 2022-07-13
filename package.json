@@ -1,0 +1,75 @@
+{
+  "name": "vscode-context",
+  "displayName": "vscode-context",
+  "description": "custom context",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.69.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:vscode-context.upText",
+    "onCommand:vscode-context.lowerText",
+    "onCommand:vscode-context.lowerCase"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-context.upText",
+        "title": "すべて大文字"
+      },
+      {
+        "command": "vscode-context.lowerText",
+        "title": "すべて小文字"
+      },
+      {
+        "command": "vscode-context.lowerCase",
+        "title": "先頭大文字"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "vscode-context.upText",
+          "group": "myGroup@1"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "vscode-context.lowerText",
+          "group": "myGroup@2"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "vscode-context.lowerCase",
+          "group": "myGroup@3"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.69.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.18.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.4",
+    "vsce": "^2.9.2"
+  }
+}

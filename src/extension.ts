@@ -15,6 +15,7 @@ const decorate = (editor: vscode.TextEditor) => {
   const decorationsArray: vscode.DecorationOptions[] = [];
   /* 1行ごとにソースコードを取得する */
   const sourceCodeArr = sourceCode.split("\n");
+  let anyCount = 0;
 
   for (let line = 0; line < sourceCodeArr.length; line++) {
     const match = sourceCodeArr[line].match(regex);
@@ -24,9 +25,14 @@ const decorate = (editor: vscode.TextEditor) => {
         new vscode.Position(line, match.index),
         new vscode.Position(line, match.index + match[1].length)
       );
+      anyCount += 1;
       decorationsArray.push({ range });
     }
   }
+  const textLabel = anyCount > 1 ? "いい加減にしなさい" : "あっぱれ";
+  vscode.window.showInformationMessage(`${textLabel}`, {
+    modal: true,
+  });
   editor.setDecorations(decorationType, decorationsArray);
 };
 
@@ -65,10 +71,6 @@ const customContext = (key: string) => {
 
     // 色つける
     vscode.workspace.onWillSaveTextDocument((event) => {
-      vscode.window.showInformationMessage(`いい加減にしなさい`, {
-        modal: true,
-      });
-
       const openEditor = vscode.window.visibleTextEditors.filter(
         (editor) => editor.document.uri === event.document.uri
       )[0];

@@ -24,6 +24,20 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(cmd5);
 }
 
+// おみくじ
+function getWebviewContent() {
+  return `<!DOCTYPE html>
+   <html lang="ja">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body>
+       <img src="https://www.mbs.jp/mbs-column/p-battle/thumb/20190924175210-dfacb10b6a288de4a8506b3c24a433dd3684b841.jpg" />
+   </body>
+   </html>`;
+}
+
 const customContext = (key: string) => {
   const editor = vscode.window.activeTextEditor;
   if (editor) {
@@ -49,6 +63,14 @@ const customContext = (key: string) => {
           const message = vscode.window.showInformationMessage(`${t}`, {
             modal: true,
           });
+          const panel = vscode.window.createWebviewPanel(
+            "omikuji",
+            `${t}`,
+            vscode.ViewColumn.Beside,
+            {}
+          );
+
+          panel.webview.html = getWebviewContent();
         // const upText2 = text.toUpperCase();
         // editor.edit((edit) => {
         //   edit.replace(selection, upText2);

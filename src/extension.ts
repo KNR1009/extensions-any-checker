@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import * as ts from "typescript";
 export function activate(context: vscode.ExtensionContext) {
   /* commands */
   let cmd = vscode.commands.registerCommand("vscode-context.capitalize", () => {
@@ -23,6 +24,10 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(cmd4);
   context.subscriptions.push(cmd5);
 }
+
+// style
+
+// 画像呼び出し
 function getWebviewContent() {
   return `<!DOCTYPE html>
    <html lang="ja">
@@ -61,11 +66,6 @@ const customContext = (key: string) => {
           const message = vscode.window.showInformationMessage(`${t}`, {
             modal: true,
           });
-
-          console.log("=============");
-          console.log("aaaa");
-          console.log(doc);
-          console.log("=============");
 
           const panel = vscode.window.createWebviewPanel(
             "omikuji",

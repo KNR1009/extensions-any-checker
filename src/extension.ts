@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
-import * as ts from "typescript";
+import Decorator from "./decorator";
+
 export function activate(context: vscode.ExtensionContext) {
   /* commands */
   let cmd = vscode.commands.registerCommand("vscode-context.capitalize", () => {
@@ -17,6 +18,25 @@ export function activate(context: vscode.ExtensionContext) {
   let cmd5 = vscode.commands.registerCommand("vscode-context.any-check", () => {
     customContext("vscode-context.any-check");
   });
+
+  // デコレーション
+  let decorator = new Decorator();
+
+  vscode.window.onDidChangeActiveTextEditor(
+    (editor) => {
+      decorator.changeActiveTextEditor(editor);
+    },
+    null,
+    context.subscriptions
+  );
+
+  vscode.workspace.onDidChangeTextDocument(
+    (event) => {
+      decorator.changeTextDocument(event);
+    },
+    null,
+    context.subscriptions
+  );
 
   context.subscriptions.push(cmd);
   context.subscriptions.push(cmd2);

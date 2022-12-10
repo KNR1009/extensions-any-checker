@@ -19,7 +19,7 @@
     "commands": [
       {
         "command": "vscode-context.upText",
-        "title": "すべて大文字"
+        "title": "anyチェック"
       },
       {
         "command": "vscode-context.lowerText",
@@ -28,6 +28,10 @@
       {
         "command": "vscode-context.lowerCase",
         "title": "先頭大文字"
+      },
+      {
+        "command": "vscode-context.any-check",
+        "title": "anyチェック"
       }
     ],
     "menus": {

@@ -55,38 +55,31 @@ function getWebviewContent() {
 
 const customContext = (key: string) => {
   const editor = vscode.window.activeTextEditor;
-  if (editor) {
+  if (editor && key === "vscode-context.any-check") {
     const document = editor.document;
     const selection = editor.selection;
     let text = document.getText(selection);
-    if (text) {
-      switch (key) {
-        case "vscode-context.any-check":
-          const message = vscode.window.showInformationMessage(
-            `いい加減にしなさい`,
-            {
-              modal: true,
-            }
-          );
 
-          const panel = vscode.window.createWebviewPanel(
-            "omikuji",
-            `t`,
-            vscode.ViewColumn.Beside,
-            {}
-          );
+    const message = vscode.window.showInformationMessage(`いい加減にしなさい`, {
+      modal: true,
+    });
 
-          panel.webview.html = getWebviewContent();
+    const panel = vscode.window.createWebviewPanel(
+      "omikuji",
+      `t`,
+      vscode.ViewColumn.Beside,
+      {}
+    );
 
-          // 色つける
-          vscode.workspace.onWillSaveTextDocument((event) => {
-            const openEditor = vscode.window.visibleTextEditors.filter(
-              (editor) => editor.document.uri === event.document.uri
-            )[0];
-            decorate(openEditor);
-          });
-      }
-    }
+    panel.webview.html = getWebviewContent();
+
+    // 色つける
+    vscode.workspace.onWillSaveTextDocument((event) => {
+      const openEditor = vscode.window.visibleTextEditors.filter(
+        (editor) => editor.document.uri === event.document.uri
+      )[0];
+      decorate(openEditor);
+    });
   }
 };
 

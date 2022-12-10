@@ -1,8 +1,10 @@
 import * as vscode from "vscode";
 
 const decorationType = vscode.window.createTextEditorDecorationType({
-  backgroundColor: "green",
-  border: "2px solid white",
+  // backgroundColor: "green",
+  // border: "2px solid white",
+  textDecoration: "line-through;",
+  color: "red;",
 });
 
 export function activate(context: vscode.ExtensionContext) {
@@ -16,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 function decorate(editor: vscode.TextEditor) {
   let sourceCode = editor.document.getText();
-  let regex = /(console\.log)/;
+  let regex = /(any)/;
 
   let decorationsArray: vscode.DecorationOptions[] = [];
 

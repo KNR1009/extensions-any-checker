@@ -10,25 +10,11 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vscode-context.upText",
-    "onCommand:vscode-context.lowerText",
-    "onCommand:vscode-context.lowerCase"
+    "onCommand:vscode-context.any-check"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      {
-        "command": "vscode-context.upText",
-        "title": "anyチェック"
-      },
-      {
-        "command": "vscode-context.lowerText",
-        "title": "すべて小文字"
-      },
-      {
-        "command": "vscode-context.lowerCase",
-        "title": "先頭大文字"
-      },
       {
         "command": "vscode-context.any-check",
         "title": "anyチェック"
@@ -38,18 +24,8 @@
       "editor/context": [
         {
           "when": "editorHasSelection",
-          "command": "vscode-context.upText",
-          "group": "myGroup@1"
-        },
-        {
-          "when": "editorHasSelection",
-          "command": "vscode-context.lowerText",
-          "group": "myGroup@2"
-        },
-        {
-          "when": "editorHasSelection",
-          "command": "vscode-context.lowerCase",
-          "group": "myGroup@3"
+          "command": "vscode-context.any-check",
+          "group": "myGroup@4"
         }
       ]
     }

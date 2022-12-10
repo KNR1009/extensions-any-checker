@@ -64,7 +64,7 @@ const customContext = (key: string) => {
           const panel = vscode.window.createWebviewPanel(
             "omikuji",
             `t`,
-            vscode.ViewColumn.One,
+            vscode.ViewColumn.Beside,
             {}
           );
 

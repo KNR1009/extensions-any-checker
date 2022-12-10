@@ -1,17 +1,19 @@
 import * as vscode from "vscode";
 
+/* anyの上に付与するデコレーション(赤色打ち消し線) */
 const decorationType = vscode.window.createTextEditorDecorationType({
   textDecoration: "line-through;",
   color: "red;",
 });
 
-// デコレーション用
+/* anyがエディター内にあった場合に赤線を引く */
 const decorate = (editor: vscode.TextEditor) => {
   const sourceCode = editor.document.getText();
+  /* 適応したい任意の文字を入れる */
   const regex = /(any)/;
 
   const decorationsArray: vscode.DecorationOptions[] = [];
-
+  /* 1行ごとにソースコードを取得する */
   const sourceCodeArr = sourceCode.split("\n");
 
   for (let line = 0; line < sourceCodeArr.length; line++) {
@@ -22,20 +24,19 @@ const decorate = (editor: vscode.TextEditor) => {
         new vscode.Position(line, match.index),
         new vscode.Position(line, match.index + match[1].length)
       );
-      const decoration = { range };
-      decorationsArray.push(decoration);
+      decorationsArray.push({ range });
     }
   }
   editor.setDecorations(decorationType, decorationsArray);
 };
 
-export function activate(context: vscode.ExtensionContext) {
+export const activate = (context: vscode.ExtensionContext) => {
   let cmd = vscode.commands.registerCommand("vscode-context.any-check", () => {
     customContext("vscode-context.any-check");
   });
 
   context.subscriptions.push(cmd);
-}
+};
 
 // 画像呼び出し
 function getWebviewContent() {
@@ -54,9 +55,6 @@ function getWebviewContent() {
 const customContext = (key: string) => {
   const editor = vscode.window.activeTextEditor;
   if (editor && key === "vscode-context.any-check") {
-    vscode.window.showInformationMessage(`いい加減にしなさい`, {
-      modal: true,
-    });
     const panel = vscode.window.createWebviewPanel(
       "t",
       `t`,
@@ -67,6 +65,10 @@ const customContext = (key: string) => {
 
     // 色つける
     vscode.workspace.onWillSaveTextDocument((event) => {
+      vscode.window.showInformationMessage(`いい加減にしなさい`, {
+        modal: true,
+      });
+
       const openEditor = vscode.window.visibleTextEditors.filter(
         (editor) => editor.document.uri === event.document.uri
       )[0];

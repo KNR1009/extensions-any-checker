@@ -61,6 +61,12 @@ const customContext = (key: string) => {
           const message = vscode.window.showInformationMessage(`${t}`, {
             modal: true,
           });
+
+          console.log("=============");
+          console.log("aaaa");
+          console.log(doc);
+          console.log("=============");
+
           const panel = vscode.window.createWebviewPanel(
             "omikuji",
             `t`,
